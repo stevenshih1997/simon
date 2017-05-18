@@ -24,38 +24,40 @@ function NoteBox(key, onClick) {
 
 	// Plays the audio associated with this NoteBox
 	this.play = function () {
-		playing++;
+	playing++;
+	setTimeout(function() {
 		// Always play from the beginning of the file.
 		audioEl.currentTime = 0;
 		audioEl.play();
+	}, 2500);
 
 		// Set active class for NOTE_DURATION time
 		boxEl.classList.add('active');
 		setTimeout(function () {
-			playing--
+			playing--;
 			if (!playing) {
 				boxEl.classList.remove('active');
 			}
-		}, NOTE_DURATION)
-	}
+		}, NOTE_DURATION);
+	};
 
 	// Enable this NoteBox
 	this.enable = function () {
 		enabled = true;
-	}
+	};
 
 	// Disable this NoteBox
 	this.disable = function () {
 		enabled = false;
-	}
+	};
 
 	// Call this NoteBox's clickHandler and play the note.
 	this.clickHandler = function () {
 		if (!enabled) return;
 
-		this.onClick(this.key)
-		this.play()
-	}.bind(this)
+		this.onClick(this.key);
+		this.play();
+	}.bind(this);
 
 	boxEl.addEventListener('mousedown', this.clickHandler);
 }
