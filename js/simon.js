@@ -25,6 +25,7 @@ function NoteBox(key, onClick) {
 	// Plays the audio associated with this NoteBox
 	this.play = function () {
 	playing++;
+	// Easy Task is adding the setTimeout function. playing++ must be outside setTimeout for mouseover animation to work.
 	setTimeout(function() {
 		// Always play from the beginning of the file.
 		audioEl.currentTime = 0;
