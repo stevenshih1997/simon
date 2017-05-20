@@ -61,6 +61,7 @@ function NoteBox(key, onClick) {
 	}.bind(this);
 
 	boxEl.addEventListener('mousedown', this.clickHandler);
+
 }
 
 // Example usage of NoteBox.
@@ -68,17 +69,19 @@ function NoteBox(key, onClick) {
 // This will create a map from key strings (i.e. 'c') to NoteBox objects so that
 // clicking the corresponding boxes on the page will play the NoteBox's audio.
 // It will also demonstrate programmatically playing notes by calling play directly.
-var notes = {};
 
-KEYS.forEach(function (key) {
-	notes[key] = new NoteBox(key);
-});
 
 // KEYS.concat(KEYS.slice().reverse()).forEach(function(key, i) {
 // 	setTimeout(notes[key].play.bind(null, key), i * NOTE_DURATION);
 // });
 
-// Easy Task
+function SimonSays() {
+var notes = {};
 
+KEYS.forEach(function (key) {
+	notes[key] = new NoteBox(key);
+});
+	
+}
 
 
