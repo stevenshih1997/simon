@@ -83,5 +83,12 @@ KEYS.forEach(function (key) {
 });
 	
 }
+// Game object
+var game = {
+
+
+
+
+}
 
 
