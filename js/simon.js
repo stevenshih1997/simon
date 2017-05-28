@@ -76,19 +76,30 @@ function NoteBox(key, onClick) {
 // });
 
 function SimonSays() {
-var notes = {};
+	var notes = {};
 
-KEYS.forEach(function (key) {
-	notes[key] = new NoteBox(key);
-});
 	
+
+	KEYS.forEach(function (key) {
+		notes[key] = new NoteBox(key);
+	});
+	
+	// returns an array of strings that represent all the enumerable properties of the given object.	
+	var numberofNotes = Object.keys(notes).length;
+
+	// Start game
+	this.startGame = function() {
+		var nextNoteplayed = nextNote();
+
+
+	};
+	// Get the next note in the sequence
+	this.nextNote = function() {
+		var note = Math.floor(Math.random() * Object.keys(notes).length);
+		return KEYS[note];
+	};
+	// Restart the game
+	this.restartGame = function() {
+
+	};
 }
-// Game object
-var game = {
-
-
-
-
-}
-
-
