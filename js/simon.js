@@ -26,11 +26,11 @@ function NoteBox(key, onClick) {
 	this.play = function () {
 	playing++;
 	// Easy Task is adding the setTimeout function. playing++ must be outside setTimeout for mouseover animation to work.
-	setTimeout(function() {
+//setTimeout(function() {
 		// Always play from the beginning of the file.
 		audioEl.currentTime = 0;
 		audioEl.play();
-	}, 2500);
+	//}, 2500);
 
 		// Set active class for NOTE_DURATION time
 		boxEl.classList.add('active');
@@ -60,7 +60,12 @@ function NoteBox(key, onClick) {
 		this.play();
 	}.bind(this);
 
+	this.getBox = function() {
+		return boxEl;
+	};
+
 	boxEl.addEventListener('mousedown', this.clickHandler);
+
 
 }
 
@@ -77,29 +82,61 @@ function NoteBox(key, onClick) {
 
 function SimonSays() {
 	var notes = {};
+	var computerNotes = [];
+	var playerNotes = [];
 
-	
 
 	KEYS.forEach(function (key) {
 		notes[key] = new NoteBox(key);
+		notes[key].getBox().addEventListener('mousedown', function(event) {
+			addClickEvents(event);
+		});
 	});
-	
-	// returns an array of strings that represent all the enumerable properties of the given object.	
-	var numberofNotes = Object.keys(notes).length;
 
+	this.addClickEvents = function(e) {
+		playerNotes.push(event.currentTarget.id);
+
+		var correctNote = true;
+		for (var i = 0; i < playerNotes.length; i++) {
+		 	if (computerNotes[i] != playerNotes[i]) { correctNote = false; }
+		}
+		
+				if(correctNote) {
+
+					// If round over, start next round in REPLAY_LENGTH.
+					if (playerNotes.length == computerNotes.length) {
+						setTimeout(startGame, 1000);
+						playerNotes = [];
+					}
+
+				} else {
+					alert("Wrong Note!");
+					computerNotes = [];
+					playerNotes = [];	
+					setTimeout(startGame, 1500);
+				}
+	}.bind(this);
+		
+
+	this.correctNote = function() {
+
+	};
 	// Start game
 	this.startGame = function() {
 		var nextNoteplayed = nextNote();
+		computerNotes.push(nextNoteplayed);
 
-
+		computerNotes.forEach(function(key, i) {
+			setTimeout(notes[key].play.bind(key), i * NOTE_DURATION);
+		});
 	};
 	// Get the next note in the sequence
 	this.nextNote = function() {
 		var note = Math.floor(Math.random() * Object.keys(notes).length);
 		return KEYS[note];
 	};
-	// Restart the game
-	this.restartGame = function() {
 
-	};
+	startGame();
 }
+
+SimonSays();
