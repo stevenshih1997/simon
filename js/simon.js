@@ -79,20 +79,21 @@ function NoteBox(key, onClick) {
 // KEYS.concat(KEYS.slice().reverse()).forEach(function(key, i) {
 // 	setTimeout(notes[key].play.bind(null, key), i * NOTE_DURATION);
 // });
-
+// Challenge Task
 function SimonSays() {
+	// Initialize variables/arrays
 	var notes = {};
 	var computerNotes = [];
 	var playerNotes = [];
 
-
+	// Add event listeners to each note after generating a new NodeBox for each note.
 	KEYS.forEach(function (key) {
 		notes[key] = new NoteBox(key);
 		notes[key].getBox().addEventListener('mousedown', function(event) {
 			addClickEvents(event);
 		});
 	});
-
+	// Function to add functionality to click event of each note.
 	this.addClickEvents = function(e) {
 		playerNotes.push(event.currentTarget.id);
 
@@ -100,43 +101,33 @@ function SimonSays() {
 		for (var i = 0; i < playerNotes.length; i++) {
 		 	if (computerNotes[i] != playerNotes[i]) { correctNote = false; }
 		}
-		
 				if(correctNote) {
-
-					// If round over, start next round in REPLAY_LENGTH.
 					if (playerNotes.length == computerNotes.length) {
-						setTimeout(startGame, 1000);
+						setTimeout(startGame, NOTE_DURATION);
 						playerNotes = [];
 					}
-
 				} else {
-					alert("Wrong Note!");
+					alert("Wrong Note! Press OK to restart.");
 					computerNotes = [];
 					playerNotes = [];	
-					setTimeout(startGame, 1500);
+					setTimeout(startGame, NOTE_DURATION * 2);
 				}
 	}.bind(this);
-		
 
-	this.correctNote = function() {
-
-	};
-	// Start game
+	// Start the game 
 	this.startGame = function() {
-		var nextNoteplayed = nextNote();
+		// Use this to generate the next note that the computer plays
+		var note = Math.floor(Math.random() * Object.keys(notes).length);
+		var nextNoteplayed = KEYS[note];
 		computerNotes.push(nextNoteplayed);
 
 		computerNotes.forEach(function(key, i) {
 			setTimeout(notes[key].play.bind(key), i * NOTE_DURATION);
 		});
 	};
-	// Get the next note in the sequence
-	this.nextNote = function() {
-		var note = Math.floor(Math.random() * Object.keys(notes).length);
-		return KEYS[note];
-	};
-
+	// Call the start game function, which calls the other helper functions.
 	startGame();
 }
-
+// Call the function to start the game.
+alert("Press OK to start the game.");
 SimonSays();
