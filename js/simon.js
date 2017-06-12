@@ -76,9 +76,6 @@ function NoteBox(key, onClick) {
 // It will also demonstrate programmatically playing notes by calling play directly.
 
 
-// KEYS.concat(KEYS.slice().reverse()).forEach(function(key, i) {
-// 	setTimeout(notes[key].play.bind(null, key), i * NOTE_DURATION);
-// });
 // Challenge Task
 function SimonSays() {
 	// Initialize variables/arrays
